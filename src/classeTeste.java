@@ -1,10 +1,3 @@
 public class classeTeste {
-    int hora = 5;
-
-
-
-
-
-
-
+    int hora = 6;
 }
