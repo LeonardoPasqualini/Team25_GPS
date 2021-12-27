@@ -1,14 +1,21 @@
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Menu {
     public static final String newLine = "_______________________________________________";
 
     public static void main(String[] args) {
-        fastScheduleMenu();
+        mainMenu();
     }
 
     /**
      * Main menu (Mockup-1)
      */
     private static void mainMenu(){
+        Scanner scanner = new Scanner(System.in);
+        // clear console
+        clearConsole();
+
         // title
         System.out.printf("\n\tMain menu\n%s\n\n", newLine);
 
@@ -17,6 +24,26 @@ public class Menu {
 
         // user input
         System.out.printf("\tEnter your choice: ");
+
+        // get user input
+        String input = scanner.nextLine();
+
+        switch(input){
+            case "1":
+                viewScheduleMenu(); break;
+            case "2":
+                viewScheduleByParametersMenu(); break;
+            case "3":
+                fastScheduleMenu(); break;
+            case "4":
+                removeScheduleMenu(); break;
+            case "5":
+                removeBaseScheduleMenu(); break;
+            case "0":
+                System.exit(0);
+            default:
+                System.out.println("Invalid option.");
+        }
     }
 
 
@@ -24,6 +51,7 @@ public class Menu {
      * View Schedule menu(Mockup-2)
      */
     private static void viewScheduleMenu(){
+        Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tView schedule\n%s\n\n", newLine);
 
@@ -37,12 +65,15 @@ public class Menu {
 
         System.out.printf("\n\n\t04-01-2022\n\t\t18:30 - 19:30");
 
+        String input = scanner.nextLine();
+        mainMenu();
     }
 
     /**
      * View schedule by parameters (Mockup-3)
      */
     private static void viewScheduleByParametersMenu(){
+        Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tView schedule by parameters\n%s\n\n", newLine);
 
@@ -61,12 +92,15 @@ public class Menu {
 
         System.out.printf("\n\t<press any key to return to the main menu>\n");
 
+        String input = scanner.nextLine();
+        mainMenu();
     }
 
     /**
      * Remove schedule (Mockup-4)
      */
     private static void removeScheduleMenu(){
+        Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tRemove schedule\n%s\n\n", newLine);
 
@@ -83,12 +117,15 @@ public class Menu {
         System.out.println("\n\tInsert schedule index to remove or 0 to return to the main menu: ");
         // TODO remove schedule by index
 
+        String input = scanner.nextLine();
+        mainMenu();
     }
 
     /**
      * Remove base schedule (Mockup-5)
      */
     private static void removeBaseScheduleMenu(){
+        Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tRemove base schedule\n%s\n\n", newLine);
 
@@ -107,12 +144,15 @@ public class Menu {
         System.out.println("\n\tInsert schedule index to remove or 0 to return to the main menu: ");
         // TODO remove base schedule by index
 
+        String input = scanner.nextLine();
+        mainMenu();
     }
 
     /**
      * Fast schedule (Mockup-6)
      */
     private static void fastScheduleMenu(){
+        Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tFast schedule\n%s\n\n", newLine);
 
@@ -134,6 +174,15 @@ public class Menu {
 
 
         System.out.printf("\n\t<press any key to return to the main menu>\n");
+
+        String input = scanner.nextLine();
+        mainMenu();
+    }
+
+    /**
+     * Clear the console
+     */
+    private static void clearConsole(){
 
     }
 
