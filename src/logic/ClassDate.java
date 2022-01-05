@@ -1,9 +1,10 @@
+package logic;
 import java.util.Calendar;
 
 public class ClassDate {
 
-    private Calendar begin;
-    private Calendar end;
+    private final Calendar begin;
+    private final Calendar end;
 
     /**
      * Constructor
@@ -44,6 +45,16 @@ public class ClassDate {
      */
     public boolean isBeginDateEqual(Calendar dateToCheck){
         return  (this.getBegin().getTime().equals(dateToCheck.getTime()));
+    }
+
+    /**
+     * Compare two ClassDate
+     * @param classDate ClassDate to be compared with
+     * @return true if both are equal
+     */
+    public boolean isEqual(ClassDate classDate){
+        return (this.getBegin().getTime().equals(classDate.getBegin().getTime()) &&
+                this.getEnd().getTime().equals(classDate.getEnd().getTime()));
     }
 }
 
