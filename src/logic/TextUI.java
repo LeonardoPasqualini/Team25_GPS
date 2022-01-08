@@ -26,12 +26,14 @@ public class TextUI {
         b3.add(Calendar.HOUR, 8);
         e3.add(Calendar.HOUR, 10);
 
-        schedule.createClassroom("A2.1");
-        schedule.createClassroom("A1.1");
-        schedule.createClassroom("A2.2");
+        schedule.createClassroom("A2.1", 1, 20, 20);
+        schedule.createClassroom("A1.1", 0, 16, 16);
+        schedule.createClassroom("A2.2", 1, 64, 0);
 
-        schedule.addClassroom("A2.1", b1, e1);
+        schedule.addClassroom("A1.1", b1, e1);
         schedule.addClassroom("A1.1", b2, e2);
+        schedule.addClassroom("A1.1", b3, e3);
+        schedule.addClassroom("A2.1", b1, e1);
         schedule.addClassroom("A2.2", b3, e3);
 
 
@@ -92,10 +94,10 @@ public class TextUI {
 
         // user input
         System.out.printf("\tEnter the classroom name: ");
-
         input = scanner.nextLine();
         classroom = schedule.viewSchedule(input);
-        // TODO print classroom data
+
+        // print classroom data
         System.out.printf("\n\n\tSchedule of classroom %s:\n", input);
         for (var cr: classroom) {
             System.out.printf("\n\t%s", cr);
@@ -109,25 +111,97 @@ public class TextUI {
      */
     public void viewScheduleByParametersMenu(){
         Scanner scanner = new Scanner(System.in);
+        String date, start, end, capacityStr, computersStr, projectorStr;
+        int capacity, computers, projector;
+        int yearB, dayB, monthB, hourB, minuteB;
+        int yearE, dayE, monthE, hourE, minuteE;
+        Calendar calendarBegin = Calendar.getInstance(), calendarEnd = Calendar.getInstance();
+        List<Classroom> classroom;
+
         // title
         System.out.printf("\n\tView schedule by parameters\n%s\n\n", newLine);
 
         // user input
-        System.out.printf("\tEnter the day: ");
-        System.out.printf("\n\tEnter start time: ");
-        System.out.printf("\n\tEnter end time: ");
-        System.out.printf("\n\tEnter minimum capacity: ");
-        System.out.printf("\n\tNumber of computers: ");
-        System.out.printf("\n\tProjector (yes/no): ");
+        System.out.printf("\tEnter the day (yyyy-MM-dd): ");
+        date = scanner.nextLine();
 
-        // TODO print available classrooms that match criteria
-        System.out.printf("\n\n\tThere are %d schedules matching your criteria.\n", 2);
-        System.out.printf("\t\t-Classroom 1.2\n");
-        System.out.printf("\t\t-Classroom 2.3\n");
+        System.out.printf("\n\tEnter start time: ");
+        start = scanner.nextLine();
+
+        System.out.printf("\n\tEnter end time: ");
+        end = scanner.nextLine();
+
+        System.out.printf("\n\tEnter minimum capacity: ");
+        capacityStr = scanner.nextLine();
+
+        System.out.printf("\n\tNumber of computers: ");
+        computersStr = scanner.nextLine();
+
+        System.out.printf("\n\tProjector (yes/no): ");
+        projectorStr = scanner.nextLine();
+
+        // convert str to calendar
+        // public final void set(int year,int month,int day,int hourOfDay, int minute,int second)
+        String[] dates = date.split("-");
+        if (dates.length != 3){
+            System.out.println("Error! The input entered for day field must be: yyyy-MM-dd");
+            return;
+        }
+
+        String[] hourBegin = start.split(":");
+        if (hourBegin.length != 2){
+            System.out.println("Error! The input entered for start time must be: HH:mm");
+            return;
+        }
+
+        String[] hourEnd = end.split(":");
+        if (hourEnd.length != 2){
+            System.out.println("Error! The input entered for end time must be: HH:mm");
+            return;
+        }
+
+        // convert str to int
+        try {
+            capacity = Integer.parseInt(capacityStr);
+            computers = Integer.parseInt(computersStr);
+            projector = Integer.parseInt(projectorStr);
+
+            // begin
+            yearB = Integer.parseInt(dates[0]);
+            monthB = Integer.parseInt(dates[1]);
+            dayB = Integer.parseInt(dates[2]);
+            hourB = Integer.parseInt(hourBegin[0]);
+            minuteB = Integer.parseInt(hourBegin[1]);
+
+            // end
+            yearE = Integer.parseInt(dates[0]);
+            monthE = Integer.parseInt(dates[1]);
+            dayE = Integer.parseInt(dates[2]);
+            hourE = Integer.parseInt(hourEnd[0]);
+            minuteE = Integer.parseInt(hourEnd[1]);
+        }
+        catch (NumberFormatException ex){
+            System.out.println("Error! The input entered is not valid!");
+            return;
+        }
+
+        // set begin calendar
+        calendarBegin.set(yearB, monthB-1, dayB, hourB, minuteB);
+
+        // set end calendar
+        calendarEnd.set(yearE, monthE-1, dayE, hourE, minuteE);
+
+        // search
+        classroom = schedule.viewScheduleByParameters(calendarBegin, calendarEnd, capacity, computers, projector);
+
+        // print available classrooms that match criteria
+        System.out.printf("\n\n\tThere are %d schedules matching your criteria.\n", classroom.size());
+        for(Classroom temp: classroom){
+            System.out.printf("\t\t%s\n", temp.getName());
+        }
 
         System.out.printf("\n\t<press any key to return to the main menu>\n");
 
-        String input = scanner.nextLine();
         mainMenu();
     }
 
