@@ -1,18 +1,50 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 
-public class Menu {
+public class TextUI {
+    static Schedule schedule = new Schedule();
+    static TextUI textUi = new TextUI();
+
     public static final String newLine = "_______________________________________________";
 
     public static void main(String[] args) {
-        mainMenu();
+
+        Calendar b1 = Calendar.getInstance();
+        Calendar e1 = Calendar.getInstance();
+        Calendar b2 = Calendar.getInstance();
+        Calendar e2 = Calendar.getInstance();
+        Calendar b3 = Calendar.getInstance();
+        Calendar e3 = Calendar.getInstance();
+
+        e1.add(Calendar.HOUR, 2);
+        b2.add(Calendar.HOUR, 4);
+        e2.add(Calendar.HOUR, 6);
+        b3.add(Calendar.HOUR, 8);
+        e3.add(Calendar.HOUR, 10);
+
+        schedule.createClassroom("A2.1");
+        schedule.createClassroom("A1.1");
+        schedule.createClassroom("A2.2");
+
+        schedule.addClassroom("A2.1", b1, e1);
+        schedule.addClassroom("A1.1", b2, e2);
+        schedule.addClassroom("A2.2", b3, e3);
+
+
+
+
+        textUi.mainMenu();
+
     }
 
     /**
      * Main menu (Mockup-1)
      */
-    private static void mainMenu(){
+    public void mainMenu(){
         Scanner scanner = new Scanner(System.in);
         // clear console
         clearConsole();
@@ -51,29 +83,31 @@ public class Menu {
     /**
      * View Schedule menu(Mockup-2)
      */
-    private static void viewScheduleMenu(){
+    public void viewScheduleMenu(){
         Scanner scanner = new Scanner(System.in);
+        String input;
+        List<ClassDate> classroom;
         // title
         System.out.printf("\n\tView schedule\n%s\n\n", newLine);
 
         // user input
         System.out.printf("\tEnter the classroom name: ");
 
+        input = scanner.nextLine();
+        classroom = schedule.viewSchedule(input);
         // TODO print classroom data
-        System.out.printf("\n\n\tSchedule of classroom %s:\n", "Classroom 1.3");
+        System.out.printf("\n\n\tSchedule of classroom %s:\n", input);
+        for (var cr: classroom) {
+            System.out.printf("\n\t%s", cr);
+        }
 
-        System.out.printf("\n\t03-01-2022\n\t\t08:30 - 10:30\n\t\t11:30 - 12:30\n\t\t17:00 - 20:00");
-
-        System.out.printf("\n\n\t04-01-2022\n\t\t18:30 - 19:30");
-
-        String input = scanner.nextLine();
         mainMenu();
     }
 
     /**
      * View schedule by parameters (Mockup-3)
      */
-    private static void viewScheduleByParametersMenu(){
+    public void viewScheduleByParametersMenu(){
         Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tView schedule by parameters\n%s\n\n", newLine);
@@ -100,7 +134,7 @@ public class Menu {
     /**
      * Remove schedule (Mockup-4)
      */
-    private static void removeScheduleMenu(){
+    public void removeScheduleMenu(){
         Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tRemove schedule\n%s\n\n", newLine);
@@ -125,7 +159,7 @@ public class Menu {
     /**
      * Remove base schedule (Mockup-5)
      */
-    private static void removeBaseScheduleMenu(){
+    public void removeBaseScheduleMenu(){
         Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tRemove base schedule\n%s\n\n", newLine);
@@ -152,7 +186,7 @@ public class Menu {
     /**
      * Fast schedule (Mockup-6)
      */
-    private static void fastScheduleMenu(){
+    public void fastScheduleMenu(){
         Scanner scanner = new Scanner(System.in);
         // title
         System.out.printf("\n\tFast schedule\n%s\n\n", newLine);
@@ -183,7 +217,7 @@ public class Menu {
     /**
      * Clear the console
      */
-    private static void clearConsole(){
+    public void clearConsole(){
 
     }
 

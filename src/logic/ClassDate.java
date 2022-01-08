@@ -1,5 +1,8 @@
 package logic;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ClassDate {
 
@@ -35,7 +38,17 @@ public class ClassDate {
     // TODO review return
     @Override
     public String toString() {
-        return "[" + begin + ":" + end + "]";
+        SimpleDateFormat formatData = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatHoras = new SimpleDateFormat("HH:mm");
+        String outDate, outBegin, outEnd;
+        Date dateBegin = begin.getTime();
+        Date dateEnd = end.getTime();
+
+        outDate = formatData.format(dateBegin);
+        outBegin = formatHoras.format(dateBegin);
+        outEnd = formatHoras.format(dateEnd);
+        return ">>>> [" + outDate + ": " +  outBegin + " - " + outEnd + "]";
+
     }
 
     /**
