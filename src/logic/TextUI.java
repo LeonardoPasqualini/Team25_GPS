@@ -1,9 +1,13 @@
 package logic;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Scanner;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class TextUI {
     static Schedule schedule = new Schedule();
@@ -12,6 +16,8 @@ public class TextUI {
     public static final String newLine = "_______________________________________________";
 
     public static void main(String[] args) {
+
+        populateBaseSchedule();
 
         Calendar b1 = Calendar.getInstance();
         Calendar e1 = Calendar.getInstance();
@@ -26,9 +32,7 @@ public class TextUI {
         b3.add(Calendar.HOUR, 8);
         e3.add(Calendar.HOUR, 10);
 
-        schedule.createClassroom("A2.1", 1, 20, 20);
-        schedule.createClassroom("A1.1", 0, 16, 16);
-        schedule.createClassroom("A2.2", 1, 64, 0);
+
 
         schedule.addClassroom("A1.1", b1, e1);
         schedule.addClassroom("A1.1", b2, e2);
@@ -41,6 +45,104 @@ public class TextUI {
 
         textUi.mainMenu();
 
+    }
+
+    public static boolean populateBaseSchedule(){
+        JSONParser parser = new JSONParser();
+
+        // parse JSON file
+        try {
+            Object object = parser.parse(new FileReader("src/logic/deis_schedule.json"));
+
+            // typecast obk to JSONObject
+            JSONObject jsonObject = (JSONObject) object;
+
+            JSONArray classroomsList = (JSONArray)jsonObject.get("classrooms");
+
+
+
+            // iterating classrooms
+            Iterator<JSONObject> it = classroomsList.iterator();
+            while (it.hasNext()){
+                JSONObject actual = it.next();
+                String name = (String) actual.get("name");
+                long projector = (long) actual.get("projector");
+                long capacity = (long) actual.get("capacity");
+                long computers = (long) actual.get("computers");
+
+                // TODO CREATE CLASSROOM
+                System.out.printf("\nClassroom %s, projector %d, capacity %d, computers %d.\n", name, projector, capacity, computers);
+                schedule.createClassroom(name, (int)projector, (int)capacity, (int)computers);
+
+                // TODO ADD CLASSES
+                JSONObject actualClasses = (JSONObject)actual.get("classes");
+
+                // MONDAY
+                System.out.printf("\tMonday\n");
+                JSONArray mondayList = (JSONArray)actualClasses.get("monday");
+                Iterator<JSONObject> itMonday = mondayList.iterator();
+                while (itMonday.hasNext()){
+                    JSONObject actualMonday = itMonday.next();
+                    String start = (String) actualMonday.get("start");
+                    String end = (String) actualMonday.get("end");
+                    System.out.printf("\t\t%s - %s\n", start, end);
+                }
+
+                // TUESDAY
+                System.out.printf("\tTuesday\n");
+                JSONArray tuesdayList = (JSONArray)actualClasses.get("tuesday");
+                Iterator<JSONObject> itTuesday = tuesdayList.iterator();
+                while (itTuesday.hasNext()){
+                    JSONObject actualMonday = itTuesday.next();
+                    String start = (String) actualMonday.get("start");
+                    String end = (String) actualMonday.get("end");
+                    System.out.printf("\t\t%s - %s\n", start, end);
+                }
+
+                // WEDNESDAY
+                System.out.printf("\tWednesday\n");
+                JSONArray wednesdayList = (JSONArray)actualClasses.get("wednesday");
+                Iterator<JSONObject> itWednesday = wednesdayList.iterator();
+                while (itWednesday.hasNext()){
+                    JSONObject actualMonday = itWednesday.next();
+                    String start = (String) actualMonday.get("start");
+                    String end = (String) actualMonday.get("end");
+                    System.out.printf("\t\t%s - %s\n", start, end);
+                }
+
+                // THURSDAY
+                System.out.printf("\tThursday\n");
+                JSONArray thursdayList = (JSONArray)actualClasses.get("thursday");
+                Iterator<JSONObject> itThursday = thursdayList.iterator();
+                while (itThursday.hasNext()){
+                    JSONObject actualMonday = itThursday.next();
+                    String start = (String) actualMonday.get("start");
+                    String end = (String) actualMonday.get("end");
+                    System.out.printf("\t\t%s - %s\n", start, end);
+                }
+
+                // FRIDAY
+                System.out.printf("\tFriday\n");
+                JSONArray fridayList = (JSONArray)actualClasses.get("friday");
+                Iterator<JSONObject> itFriday = fridayList.iterator();
+                while (itFriday.hasNext()){
+                    JSONObject actualMonday = itFriday.next();
+                    String start = (String) actualMonday.get("start");
+                    String end = (String) actualMonday.get("end");
+                    System.out.printf("\t\t%s - %s\n", start, end);
+                }
+
+            }
+        }
+        catch (IOException e) {
+            System.err.println("I/O exception: " + e);
+        }
+        catch (ParseException e) {
+            System.err.println("Error parson JSON file");
+        }
+
+
+        return false;
     }
 
     /**

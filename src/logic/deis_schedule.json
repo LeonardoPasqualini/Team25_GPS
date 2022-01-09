@@ -1,0 +1,472 @@
+{
+    "classrooms": [
+        {
+            "name" : "A1.1",
+            "capacity": 52,
+            "computers": 0,
+            "projector": 1,
+            "classes": {
+                "monday" : [
+                    { "start": "10:00", "end": "12:00" },
+                    { "start": "14:00", "end": "17:00" },
+                    { "start": "17:30", "end": "20:30" }
+                ],
+                "tuesday" : [
+                    { "start": "14:30", "end": "16:30" },
+                    { "start": "18:00", "end": "00:00" }
+                ],
+                "wednesday" : [
+                    { "start": "08:30", "end": "10:30" },
+                    { "start": "11:30", "end": "13:30" },
+                    { "start": "18:00", "end": "21:00" }
+                ],
+                "thursday" : [
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "friday" : [
+                    { "start": "11:00", "end": "12:00" },
+                    { "start": "18:00", "end": "22:00" }
+                ]
+            }
+        },
+        {
+            "name" : "A1.2",
+            "capacity": 48,
+            "computers": 0,
+            "projector": 1,
+            "classes": {
+                "monday" : [
+                    { "start": "16:30", "end": "19:30" }
+                ],
+                "tuesday" : [
+                    { "start": "16:30", "end": "17:30" },
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "wednesday" : [
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "thursday" : [
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "friday" : [
+                    { "start": "18:00", "end": "20:00" }
+                ]
+            }
+        },
+        {
+            "name" : "A1.3",
+            "capacity": 24,
+            "computers": 0,
+            "projector": 1,
+            "classes": {
+                "monday" : [
+                    { "start": "17:30", "end": "19:30" }
+                ],
+                "tuesday" : [
+                    { "start": "17:30", "end": "18:30" }
+                ],
+                "wednesday" : [
+                    { "start": "10:30", "end": "11:30" },
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "thursday" : [
+                ],
+                "friday" : [
+                    { "start": "18:00", "end": "20:00" }
+                ]
+            }
+        },
+        {
+            "name" : "A2.1",
+            "capacity": 64,
+            "computers": 0,
+            "projector": 1,
+            "classes": {
+                "monday" : [
+                    { "start": "09:30", "end": "12:30" },
+                    { "start": "18:30", "end": "20:30" }
+                ],
+                "tuesday" : [
+                    { "start": "11:30", "end": "13:30" },
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "wednesday" : [
+                    { "start": "09:30", "end": "11:30" },
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "thursday" : [
+                ],
+                "friday" : [
+                    { "start": "11:30", "end": "13:30" },
+                    { "start": "14:30", "end": "15:30" },
+                    { "start": "17:30", "end": "19:30" }
+                ]
+            }
+        },
+        {
+            "name" : "A2.2",
+            "capacity": 32,
+            "computers": 0,
+            "projector": 1,
+            "classes": {
+                "monday" : [
+                    { "start": "09:30", "end": "12:30" },
+                    { "start": "22:00", "end": "00:00" }
+                ],
+                "tuesday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "20:00", "end": "22:00" }
+                ],
+                "wednesday" : [
+                    { "start": "10:30", "end": "13:30" }
+                ],
+                "thursday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "15:30", "end": "18:30" }
+                ],
+                "friday" : [
+                    { "start": "12:00", "end": "14:00" }
+                ]
+            }
+        },
+        {
+            "name" : "A2.2",
+            "capacity": 32,
+            "computers": 0,
+            "projector": 1,
+            "classes": {
+                "monday" : [
+                    { "start": "09:30", "end": "12:30" },
+                    { "start": "22:00", "end": "00:00" }
+                ],
+                "tuesday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "20:00", "end": "22:00" }
+                ],
+                "wednesday" : [
+                    { "start": "10:30", "end": "13:30" }
+                ],
+                "thursday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "15:30", "end": "18:30" }
+                ],
+                "friday" : [
+                    { "start": "11:30", "end": "13:30" }
+                ]
+            }
+        },
+        {
+            "name" : "L0.1",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [                            
+                ],
+                "tuesday" : [
+                    { "start": "15:00", "end": "20:00" },
+                    { "start": "21:00", "end": "00:00" }
+                ],
+                "wednesday" : [                    
+                ],
+                "thursday" : [
+                    { "start": "13:30", "end": "16:30" },
+                    { "start": "17:30", "end": "20:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ],
+                "friday" : [
+                    { "start": "15:00", "end": "18:00" },
+                    { "start": "21:00", "end": "00:00" }
+                ]
+            }
+        },
+        {
+            "name" : "L1.1",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "09:30", "end": "13:30" },
+                    { "start": "15:00", "end": "17:00" },
+                    { "start": "17:30", "end": "19:30" },
+                    { "start": "20:00", "end": "22:00" }
+                                           
+                ],
+                "tuesday" : [
+                    { "start": "08:30", "end": "12:30" },
+                    { "start": "13:00", "end": "19:00" },
+                    { "start": "20:00", "end": "00:00" }
+                ],
+                "wednesday" : [       
+                    { "start": "09:30", "end": "13:30" },
+                    { "start": "21:30", "end": "23:30" }             
+                ],
+                "thursday" : [
+                    { "start": "09:30", "end": "19:30" }
+                ],
+                "friday" : [
+                    { "start": "09:30", "end": "13:30" },
+                    { "start": "14:00", "end": "18:00" },
+                    { "start": "21:30", "end": "23:30" }
+                ]
+            }
+        },
+        {
+            "name" : "L1.2",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "17:00", "end": "22:00" }                                          
+                ],
+                "tuesday" : [
+                    { "start": "08:30", "end": "12:30" }
+                ],
+                "wednesday" : [       
+                    { "start": "10:30", "end": "13:30" },
+                    { "start": "16:30", "end": "20:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ],
+                "thursday" : [
+                    { "start": "09:30", "end": "13:30" },
+                    { "start": "15:30", "end": "17:30" },
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "friday" : [
+                    { "start": "11:30", "end": "16:30" },
+                    { "start": "17:00", "end": "18:00" },
+                    { "start": "18:30", "end": "20:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ]
+            }
+        },
+        {
+            "name" : "L1.3",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "14:30", "end": "20:30" },
+                    { "start": "22:00", "end": "00:00" }                                    
+                ],
+                "tuesday" : [
+                    { "start": "08:30", "end": "12:30" }
+                ],
+                "wednesday" : [       
+                    { "start": "22:00", "end": "00:00" }
+                ],
+                "thursday" : [
+                    { "start": "09:30", "end": "13:30" },
+                    { "start": "14:30", "end": "20:30" }
+                ],
+                "friday" : [
+                    { "start": "08:30", "end": "10:30" },
+                    { "start": "13:30", "end": "16:30" },
+                    { "start": "20:00", "end": "00:00" }
+                ]
+            }
+        },
+        {
+            "name" : "L1.4",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "14:00", "end": "17:00" },
+                    { "start": "17:30", "end": "20:30" }                         
+                ],
+                "tuesday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "18:30", "end": "20:30" }    
+                ],
+                "wednesday" : [       
+                    { "start": "10:30", "end": "13:30" },
+                    { "start": "21:00", "end": "00:00" }    
+                ],
+                "thursday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "14:00", "end": "20:00" }    
+                ],
+                "friday" : [
+                    { "start": "09:30", "end": "12:30" }  
+                ]
+            }
+        },
+        {
+            "name" : "L1.5",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "14:00", "end": "17:00" },
+                    { "start": "17:30", "end": "20:30" }           
+                ],
+                "tuesday" : [
+                    { "start": "09:30", "end": "12:30" },
+                    { "start": "13:30", "end": "16:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ],
+                "wednesday" : [       
+                    { "start": "08:30", "end": "10:30" }
+                ],
+                "thursday" : [
+                     
+                ],
+                "friday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "13:30", "end": "15:30" }
+                ]
+            }
+        },
+        {
+            "name" : "L1.6",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "13:30", "end": "16:30" },
+                    { "start": "18:00", "end": "22:00" }     
+                ],
+                "tuesday" : [
+                    { "start": "09:30", "end": "12:30" },
+                    { "start": "15:00", "end": "18:00" }
+                ],
+                "wednesday" : [       
+                    { "start": "10:30", "end": "13:30" },
+                    { "start": "18:00", "end": "20:00" }
+                ],
+                "thursday" : [
+                    { "start": "09:30", "end": "19:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ],
+                "friday" : [
+                    { "start": "09:30", "end": "13:30" },
+                    { "start": "15:30", "end": "19:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ]
+            }
+        },
+        {
+            "name" : "L1.7",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "14:00", "end": "17:00" },
+                    { "start": "17:30", "end": "20:30" }                
+                ],
+                "tuesday" : [
+                    { "start": "08:30", "end": "12:30" },
+                    { "start": "13:30", "end": "16:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ],
+                "wednesday" : [       
+                    { "start": "17:30", "end": "19:30" },
+                    { "start": "20:00", "end": "00:00" }
+                ],
+                "thursday" : [
+                    { "start": "08:30", "end": "10:30" },
+                    { "start": "14:30", "end": "19:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ],
+                "friday" : [
+                    { "start": "08:30", "end": "12:30" },
+                    { "start": "13:30", "end": "16:30" },
+                    { "start": "21:00", "end": "00:00" }
+                ]
+            }
+        },
+        {
+            "name" : "L1.8",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "14:00", "end": "20:00" }       
+                ],
+                "tuesday" : [
+                    { "start": "10:30", "end": "16:30" },
+                    { "start": "20:00", "end": "00:00" }
+                ],
+                "wednesday" : [       
+                    { "start": "10:30", "end": "13:30" },
+                    { "start": "17:30", "end": "19:30" },
+                    { "start": "22:00", "end": "00:00" }
+                ],
+                "thursday" : [
+                    { "start": "08:30", "end": "17:30" },
+                    { "start": "18:00", "end": "00:00" }
+                ],
+                "friday" : [
+                    { "start": "08:30", "end": "11:30" },
+                    { "start": "13:30", "end": "15:30" },
+                    { "start": "17:30", "end": "19:30" },
+                    { "start": "20:00", "end": "22:00" }
+                ]
+            }
+        },
+        {
+            "name" : "L2.1",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "18:00", "end": "20:00" },
+                    { "start": "22:00", "end": "00:00" }
+                ],
+                "tuesday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "14:00", "end": "16:00" },
+                    { "start": "22:00", "end": "00:00" }
+                ],
+                "wednesday" : [       
+                    { "start": "09:30", "end": "13:30" }
+                ],
+                "thursday" : [
+                    { "start": "09:30", "end": "11:30" },
+                    { "start": "13:30", "end": "17:30" },
+                    { "start": "18:00", "end": "00:00" }
+                ],
+                "friday" : [
+                    { "start": "08:30", "end": "10:30" },
+                    { "start": "14:00", "end": "00:00" }
+                ]
+            }
+        },
+        {
+            "name" : "L2.2",
+            "capacity": 32,
+            "computers": 16,
+            "projector": 1,
+            "classes": {
+                "monday" : [     
+                    { "start": "15:00", "end": "18:00" },
+                    { "start": "20:00", "end": "00:00" }
+                ],
+                "tuesday" : [
+                    { "start": "10:30", "end": "12:30" },
+                    { "start": "20:00", "end": "00:00" }
+                ],
+                "wednesday" : [       
+                    { "start": "08:30", "end": "13:30" }
+                ],
+                "thursday" : [
+                    { "start": "09:30", "end": "18:30" },
+                    { "start": "20:00", "end": "00:00" }
+                ],
+                "friday" : [
+                    
+                ]
+            }
+        }
+    ]
+}
