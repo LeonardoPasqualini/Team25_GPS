@@ -62,6 +62,8 @@ public class Schedule {
             if (temp.getComputers() < computers && computers != -1){
                 continue;
             }
+            if(temp.checkClass(new ClassDate(start, end)))
+                continue;
             sb.append("\n\tClassroom ").append(temp.getName()).append(" has:\n");
             sb.append("\t").append(temp.getCapacity()).append(" seats\n");
             sb.append("\t").append(temp.getProjector()).append(" projectors\n");
