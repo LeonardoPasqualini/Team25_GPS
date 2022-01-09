@@ -87,11 +87,11 @@ public class TextUI {
                         classMinuteEndTime= Integer.parseInt(hourEnd[1]);
 
                         Calendar calendarBegin = Calendar.getInstance();
-                        calendarBegin.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
+                        calendarBegin.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH), nextMonday.get(Calendar.DATE),
                                 classHourBeginTime, classMinuteBeginTime);
 
                         Calendar calendarEnd = Calendar.getInstance();
-                        calendarEnd.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
+                        calendarEnd.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH), nextMonday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
                         schedule.addClassroom(name, calendarBegin, calendarEnd);
@@ -116,11 +116,11 @@ public class TextUI {
                         classMinuteEndTime= Integer.parseInt(hourEnd[1]);
 
                         Calendar calendarBegin = Calendar.getInstance();
-                        calendarBegin.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
+                        calendarBegin.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH), nextTuesday.get(Calendar.DATE),
                                 classHourBeginTime, classMinuteBeginTime);
 
                         Calendar calendarEnd = Calendar.getInstance();
-                        calendarEnd.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
+                        calendarEnd.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH), nextTuesday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
                         schedule.addClassroom(name, calendarBegin, calendarEnd);
@@ -145,11 +145,11 @@ public class TextUI {
                         classMinuteEndTime= Integer.parseInt(hourEnd[1]);
 
                         Calendar calendarBegin = Calendar.getInstance();
-                        calendarBegin.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
+                        calendarBegin.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH), nextWednesday.get(Calendar.DATE),
                                 classHourBeginTime, classMinuteBeginTime);
 
                         Calendar calendarEnd = Calendar.getInstance();
-                        calendarEnd.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
+                        calendarEnd.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH), nextWednesday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
                         schedule.addClassroom(name, calendarBegin, calendarEnd);
@@ -176,11 +176,11 @@ public class TextUI {
                         classMinuteEndTime= Integer.parseInt(hourEnd[1]);
 
                         Calendar calendarBegin = Calendar.getInstance();
-                        calendarBegin.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
+                        calendarBegin.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH), nextThursday.get(Calendar.DATE),
                                 classHourBeginTime, classMinuteBeginTime);
 
                         Calendar calendarEnd = Calendar.getInstance();
-                        calendarEnd.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
+                        calendarEnd.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH), nextThursday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
                         schedule.addClassroom(name, calendarBegin, calendarEnd);
@@ -206,11 +206,11 @@ public class TextUI {
                         classMinuteEndTime= Integer.parseInt(hourEnd[1]);
 
                         Calendar calendarBegin = Calendar.getInstance();
-                        calendarBegin.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
+                        calendarBegin.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH), nextFriday.get(Calendar.DATE),
                                 classHourBeginTime, classMinuteBeginTime);
 
                         Calendar calendarEnd = Calendar.getInstance();
-                        calendarEnd.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
+                        calendarEnd.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH), nextFriday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
                         schedule.addClassroom(name, calendarBegin, calendarEnd);
