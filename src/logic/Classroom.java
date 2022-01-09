@@ -117,4 +117,13 @@ public class Classroom {
         }
         return isRemoved;
     }
+
+    public boolean checkClass(ClassDate newClass){
+        for(ClassDate cd : classes){
+            if(newClass.getBegin().compareTo(cd.getEnd()) < 0 && newClass.getEnd().compareTo(cd.getBegin()) > 0){
+                return false;
+            }
+        }
+        return true;
+    }
 }

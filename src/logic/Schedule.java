@@ -81,13 +81,45 @@ public class Schedule {
     }
 
     public boolean addClassroom(String name, Calendar begin, Calendar end){
+        ClassDate cd = new ClassDate(begin,end);
         for (var classroom: classrooms) {
             if(classroom.getName().equalsIgnoreCase(name)){
-                classroom.addClass(new ClassDate(begin,end));
-                return true;
+                if(checkClassDate(classroom, cd)) {
+                    classroom.addClass(cd);
+                    return true;
+                }
             }
         }
         return false;
+    }
+
+    public boolean checkClassDate(Classroom classroom, ClassDate cd){
+        return classroom.checkClass(cd);
+    }
+
+    public String getAvailableClassrooms(Calendar begin, Calendar end, int capacity, int computers, int projector){
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        sb.append("\tAvailable classrooms:\n\n");
+        for(Classroom cr : classrooms){
+            if (cr.getCapacity() < capacity && capacity != -1){
+                continue;
+            }
+            if (cr.getProjector() < projector && projector != -1){
+                continue;
+            }
+            if (cr.getComputers() < computers && computers != -1){
+                continue;
+            }
+            if(cr.checkClass(new ClassDate(begin,end))){
+                count++;
+                sb.append("\t- ").append(cr.getName()).append("\n");
+            }
+        }
+        if(count > 0)
+            return sb.toString();
+        else
+            return "No available classrooms matching parameters.\n";
     }
 
     public void createClassroom(String name){
