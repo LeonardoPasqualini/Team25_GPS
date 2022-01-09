@@ -50,6 +50,7 @@ public class Schedule {
     public String viewScheduleByParameters(Calendar start, Calendar end, int capacity, int computers, int projector){
         StringBuilder sb = new StringBuilder();
         int count = 0;
+
         sb.append("\n\tClassrooms matching parameters:\n\n");
         for(Classroom temp:classrooms){
             // check capacity, computers and projector
@@ -72,11 +73,20 @@ public class Schedule {
             for(ClassDate classDate: classes){
                 Calendar classDateBegin = classDate.getBegin();
                 Calendar classDateEnd = classDate.getEnd();
+
+                if (classDateBegin.compareTo(start) >= 0 && classDateBegin.compareTo(end) <= 0){
+                    count++;
+                    sb.append("\tClass ").append(count).append(": ").append(classDate).append("\n");
+                }
+
                 // compara a data
+                /*
                 if (classDateBegin.compareTo(start) >= 0 && classDateEnd.compareTo(end) <= 0){
                     count++;
                     sb.append("\tClass ").append(count).append(": ").append(classDate).append("\n");
                 }
+
+                 */
             }
         }
         return sb.toString();
