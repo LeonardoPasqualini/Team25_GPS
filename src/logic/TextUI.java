@@ -19,29 +19,6 @@ public class TextUI {
 
         populateBaseSchedule();
 
-        Calendar b1 = Calendar.getInstance();
-        Calendar e1 = Calendar.getInstance();
-        Calendar b2 = Calendar.getInstance();
-        Calendar e2 = Calendar.getInstance();
-        Calendar b3 = Calendar.getInstance();
-        Calendar e3 = Calendar.getInstance();
-
-        e1.add(Calendar.HOUR, 2);
-        b2.add(Calendar.HOUR, 4);
-        e2.add(Calendar.HOUR, 6);
-        b3.add(Calendar.HOUR, 8);
-        e3.add(Calendar.HOUR, 10);
-
-
-
-        schedule.addClassroom("A1.1", b1, e1);
-        schedule.addClassroom("A1.1", b2, e2);
-        schedule.addClassroom("A1.1", b3, e3);
-        schedule.addClassroom("A2.1", b1, e1);
-        schedule.addClassroom("A2.2", b3, e3);
-
-
-
 
         textUi.mainMenu();
 
@@ -49,6 +26,25 @@ public class TextUI {
 
     public static boolean populateBaseSchedule(){
         JSONParser parser = new JSONParser();
+        Calendar date = Calendar.getInstance();
+
+        Calendar nextMonday = getNextDayOfWeek(Calendar.MONDAY);
+        Calendar nextTuesday = getNextDayOfWeek(Calendar.TUESDAY);
+        Calendar nextWednesday = getNextDayOfWeek(Calendar.WEDNESDAY);
+        Calendar nextThursday = getNextDayOfWeek(Calendar.THURSDAY);
+        Calendar nextFriday = getNextDayOfWeek(Calendar.FRIDAY);
+
+        String[] hourStart;
+        String[] hourEnd;
+        int classHourBeginTime, classHourEndTime;
+        int classMinuteBeginTime, classMinuteEndTime;
+
+        System.out.println("next monday is: " + nextMonday.get(Calendar.DATE));
+        System.out.println("next tuesday is: " + nextTuesday.get(Calendar.DATE));
+        System.out.println("next wednesday is: " + nextWednesday.get(Calendar.DATE));
+        System.out.println("next thursday is: " + nextThursday.get(Calendar.DATE));
+        System.out.println("next friday is: " + nextFriday.get(Calendar.DATE));
+
 
         // parse JSON file
         try {
@@ -56,10 +52,7 @@ public class TextUI {
 
             // typecast obk to JSONObject
             JSONObject jsonObject = (JSONObject) object;
-
             JSONArray classroomsList = (JSONArray)jsonObject.get("classrooms");
-
-
 
             // iterating classrooms
             Iterator<JSONObject> it = classroomsList.iterator();
@@ -70,7 +63,8 @@ public class TextUI {
                 long capacity = (long) actual.get("capacity");
                 long computers = (long) actual.get("computers");
 
-                // TODO CREATE CLASSROOM
+
+                // CREATE CLASSROOM
                 System.out.printf("\nClassroom %s, projector %d, capacity %d, computers %d.\n", name, projector, capacity, computers);
                 schedule.createClassroom(name, (int)projector, (int)capacity, (int)computers);
 
@@ -85,6 +79,24 @@ public class TextUI {
                     JSONObject actualMonday = itMonday.next();
                     String start = (String) actualMonday.get("start");
                     String end = (String) actualMonday.get("end");
+
+                    hourStart = start.split(":");
+                    hourEnd = end.split(":");
+                    classHourBeginTime = Integer.parseInt(hourStart[0]);
+                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                    classHourEndTime = Integer.parseInt(hourEnd[0]);
+                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                    Calendar calendarBegin = Calendar.getInstance();
+                    calendarBegin.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
+                            classHourBeginTime, classMinuteBeginTime);
+
+                    Calendar calendarEnd = Calendar.getInstance();
+                    calendarEnd.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
+                            classHourEndTime, classMinuteEndTime);
+
+                    schedule.addClassroom(name, calendarBegin, calendarEnd);
+
                     System.out.printf("\t\t%s - %s\n", start, end);
                 }
 
@@ -96,6 +108,24 @@ public class TextUI {
                     JSONObject actualMonday = itTuesday.next();
                     String start = (String) actualMonday.get("start");
                     String end = (String) actualMonday.get("end");
+
+                    hourStart = start.split(":");
+                    hourEnd = end.split(":");
+                    classHourBeginTime = Integer.parseInt(hourStart[0]);
+                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                    classHourEndTime = Integer.parseInt(hourEnd[0]);
+                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                    Calendar calendarBegin = Calendar.getInstance();
+                    calendarBegin.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
+                            classHourBeginTime, classMinuteBeginTime);
+
+                    Calendar calendarEnd = Calendar.getInstance();
+                    calendarEnd.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
+                            classHourEndTime, classMinuteEndTime);
+
+                    schedule.addClassroom(name, calendarBegin, calendarEnd);
+
                     System.out.printf("\t\t%s - %s\n", start, end);
                 }
 
@@ -107,8 +137,28 @@ public class TextUI {
                     JSONObject actualMonday = itWednesday.next();
                     String start = (String) actualMonday.get("start");
                     String end = (String) actualMonday.get("end");
+
+                    hourStart = start.split(":");
+                    hourEnd = end.split(":");
+                    classHourBeginTime = Integer.parseInt(hourStart[0]);
+                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                    classHourEndTime = Integer.parseInt(hourEnd[0]);
+                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                    Calendar calendarBegin = Calendar.getInstance();
+                    calendarBegin.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
+                            classHourBeginTime, classMinuteBeginTime);
+
+                    Calendar calendarEnd = Calendar.getInstance();
+                    calendarEnd.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
+                            classHourEndTime, classMinuteEndTime);
+
+                    schedule.addClassroom(name, calendarBegin, calendarEnd);
+
                     System.out.printf("\t\t%s - %s\n", start, end);
                 }
+
+
 
                 // THURSDAY
                 System.out.printf("\tThursday\n");
@@ -118,8 +168,27 @@ public class TextUI {
                     JSONObject actualMonday = itThursday.next();
                     String start = (String) actualMonday.get("start");
                     String end = (String) actualMonday.get("end");
+
+                    hourStart = start.split(":");
+                    hourEnd = end.split(":");
+                    classHourBeginTime = Integer.parseInt(hourStart[0]);
+                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                    classHourEndTime = Integer.parseInt(hourEnd[0]);
+                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                    Calendar calendarBegin = Calendar.getInstance();
+                    calendarBegin.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
+                            classHourBeginTime, classMinuteBeginTime);
+
+                    Calendar calendarEnd = Calendar.getInstance();
+                    calendarEnd.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
+                            classHourEndTime, classMinuteEndTime);
+
+                    schedule.addClassroom(name, calendarBegin, calendarEnd);
+
                     System.out.printf("\t\t%s - %s\n", start, end);
                 }
+
 
                 // FRIDAY
                 System.out.printf("\tFriday\n");
@@ -129,8 +198,28 @@ public class TextUI {
                     JSONObject actualMonday = itFriday.next();
                     String start = (String) actualMonday.get("start");
                     String end = (String) actualMonday.get("end");
+
+                    hourStart = start.split(":");
+                    hourEnd = end.split(":");
+                    classHourBeginTime = Integer.parseInt(hourStart[0]);
+                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                    classHourEndTime = Integer.parseInt(hourEnd[0]);
+                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                    Calendar calendarBegin = Calendar.getInstance();
+                    calendarBegin.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
+                            classHourBeginTime, classMinuteBeginTime);
+
+                    Calendar calendarEnd = Calendar.getInstance();
+                    calendarEnd.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
+                            classHourEndTime, classMinuteEndTime);
+
+                    schedule.addClassroom(name, calendarBegin, calendarEnd);
+
                     System.out.printf("\t\t%s - %s\n", start, end);
                 }
+
+
 
             }
         }
@@ -143,6 +232,19 @@ public class TextUI {
 
 
         return false;
+    }
+
+    /**
+     * Get the next day of weel
+     * @param day_of_week
+     * @return
+     */
+    private static Calendar getNextDayOfWeek(int day_of_week){
+        Calendar calendar = Calendar.getInstance();
+        while(calendar.get(Calendar.DAY_OF_WEEK) != day_of_week){
+            calendar.add(Calendar.DATE, 1);
+        }
+        return calendar;
     }
 
     /**

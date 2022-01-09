@@ -47,7 +47,7 @@ public class ClassDate {
         outDate = formatData.format(dateBegin);
         outBegin = formatHoras.format(dateBegin);
         outEnd = formatHoras.format(dateEnd);
-        return ">>>> [" + outDate + ": " +  outBegin + " - " + outEnd + "]";
+        return "> [" + outDate + ": " +  outBegin + " - " + outEnd + "]";
 
     }
 
