@@ -65,9 +65,11 @@ public class ClassDate {
      * @param classDate ClassDate to be compared with
      * @return true if both are equal
      */
-    public boolean isEqual(ClassDate classDate){
-        return (this.getBegin().getTime().equals(classDate.getBegin().getTime()) &&
-                this.getEnd().getTime().equals(classDate.getEnd().getTime()));
+    @Override
+    public boolean equals(Object classDate){
+        if(!(classDate instanceof ClassDate)) return false;
+        return (this.getBegin().getTime().equals(((ClassDate)classDate).getBegin().getTime()) &&
+                this.getEnd().getTime().equals(((ClassDate)classDate).getEnd().getTime()));
     }
 }
 

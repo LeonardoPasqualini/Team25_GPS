@@ -109,7 +109,7 @@ public class Classroom {
     public boolean removeClass(ClassDate deadClass){
         boolean isRemoved = false;
         for(ClassDate temp : classes){
-            if (temp.isEqual(deadClass)){
+            if (temp.equals(deadClass)){
                 classes.remove(temp);
                 isRemoved = true;
                 break;

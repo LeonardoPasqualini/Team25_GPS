@@ -85,26 +85,15 @@ public class TextUI {
     public void viewScheduleMenu(){
         Scanner scanner = new Scanner(System.in);
         String input;
-        List<ClassDate> classroom;
         // title
         System.out.printf("\n\tView schedule\n%s\n\n", newLine);
 
         // user input
-        System.out.printf("\tEnter the classroom name: ");
+        System.out.print("\tEnter the classroom name or press enter for global view: ");
         input = scanner.nextLine();
-        classroom = schedule.viewSchedule(input);
-
-        // classroom not found
-        if(classroom == null){
-            System.out.println("Classroom not found.");
-            return;
-        }
 
         // print classroom data
-        System.out.printf("\n\n\tSchedule of classroom %s:\n", input);
-        for (var cr: classroom) {
-            System.out.printf("\n\t%s", cr);
-        }
+        System.out.print(schedule.viewSchedule(input));
     }
 
     /**

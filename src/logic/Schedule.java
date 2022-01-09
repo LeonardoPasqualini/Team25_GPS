@@ -6,12 +6,33 @@ import java.util.List;
 
 
 public class Schedule {
-    private final List<Classroom> classrooms = new ArrayList<>();
+    private final List<Classroom> classrooms;
 
-    public List<ClassDate> viewSchedule(String className){
+    public Schedule(){
+        classrooms = new ArrayList<>();
+    }
+
+    public String viewSchedule(String className){
+        StringBuilder sb = new StringBuilder();
+        if(className.equals("")) {
+            sb.append("\n\n\tSchedule of classrooms:\n\n");
+            for (var classroom: classrooms) {
+                sb.append("\t- Classroom ").append(classroom.getName()).append(":");
+                for (var cr : classroom.getClasses()) {
+                    sb.append("\n\t").append(cr);
+                }
+                sb.append("\n\n");
+            }
+            return sb.toString();
+        }
         for (var classroom: classrooms) {
             if(classroom.getName().equalsIgnoreCase(className)){
-                return classroom.getClasses();
+                sb.append("\n\n\tSchedule of classroom ").append(className).append(":\n");
+                for (var cr : classroom.getClasses()) {
+                    sb.append("\n\t").append(cr);
+                }
+                sb.append("\n");
+                return sb.toString();
             }
         }
         return null;
