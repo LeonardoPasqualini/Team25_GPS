@@ -26,212 +26,220 @@ public class TextUI {
 
     public static boolean populateBaseSchedule(){
         JSONParser parser = new JSONParser();
-        Calendar date = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        int count = 0, max = 4;
 
-        Calendar nextMonday = getNextDayOfWeek(Calendar.MONDAY);
-        Calendar nextTuesday = getNextDayOfWeek(Calendar.TUESDAY);
-        Calendar nextWednesday = getNextDayOfWeek(Calendar.WEDNESDAY);
-        Calendar nextThursday = getNextDayOfWeek(Calendar.THURSDAY);
-        Calendar nextFriday = getNextDayOfWeek(Calendar.FRIDAY);
+        Calendar nextMonday = getNextDayOfWeek(calendar, Calendar.MONDAY);
+        Calendar nextTuesday = getNextDayOfWeek(calendar, Calendar.TUESDAY);
+        Calendar nextWednesday = getNextDayOfWeek(calendar, Calendar.WEDNESDAY);
+        Calendar nextThursday = getNextDayOfWeek(calendar, Calendar.THURSDAY);
+        Calendar nextFriday = getNextDayOfWeek(calendar, Calendar.FRIDAY);
 
         String[] hourStart;
         String[] hourEnd;
         int classHourBeginTime, classHourEndTime;
         int classMinuteBeginTime, classMinuteEndTime;
 
-        System.out.println("next monday is: " + nextMonday.get(Calendar.DATE));
-        System.out.println("next tuesday is: " + nextTuesday.get(Calendar.DATE));
-        System.out.println("next wednesday is: " + nextWednesday.get(Calendar.DATE));
-        System.out.println("next thursday is: " + nextThursday.get(Calendar.DATE));
-        System.out.println("next friday is: " + nextFriday.get(Calendar.DATE));
+        // add base schedule for the next 4 weeks
+        while (count < max){
+
+            // parse JSON file
+            try {
+                Object object = parser.parse(new FileReader("src/logic/deis_schedule.json"));
+
+                // typecast obk to JSONObject
+                JSONObject jsonObject = (JSONObject) object;
+                JSONArray classroomsList = (JSONArray)jsonObject.get("classrooms");
+
+                // iterating classrooms
+                Iterator<JSONObject> it = classroomsList.iterator();
+                while (it.hasNext()){
+                    JSONObject actual = it.next();
+                    String name = (String) actual.get("name");
+                    long projector = (long) actual.get("projector");
+                    long capacity = (long) actual.get("capacity");
+                    long computers = (long) actual.get("computers");
 
 
-        // parse JSON file
-        try {
-            Object object = parser.parse(new FileReader("src/logic/deis_schedule.json"));
+                    // CREATE CLASSROOM
+                    System.out.printf("\nClassroom %s, projector %d, capacity %d, computers %d.\n", name, projector, capacity, computers);
+                    if (count == 0){
+                        schedule.createClassroom(name, (int)projector, (int)capacity, (int)computers);
+                    }
 
-            // typecast obk to JSONObject
-            JSONObject jsonObject = (JSONObject) object;
-            JSONArray classroomsList = (JSONArray)jsonObject.get("classrooms");
+                    // TODO ADD CLASSES
+                    JSONObject actualClasses = (JSONObject)actual.get("classes");
 
-            // iterating classrooms
-            Iterator<JSONObject> it = classroomsList.iterator();
-            while (it.hasNext()){
-                JSONObject actual = it.next();
-                String name = (String) actual.get("name");
-                long projector = (long) actual.get("projector");
-                long capacity = (long) actual.get("capacity");
-                long computers = (long) actual.get("computers");
+                    // MONDAY
+                    System.out.printf("\tMonday\n");
+                    JSONArray mondayList = (JSONArray)actualClasses.get("monday");
+                    Iterator<JSONObject> itMonday = mondayList.iterator();
+                    while (itMonday.hasNext()){
+                        JSONObject actualMonday = itMonday.next();
+                        String start = (String) actualMonday.get("start");
+                        String end = (String) actualMonday.get("end");
+
+                        hourStart = start.split(":");
+                        hourEnd = end.split(":");
+                        classHourBeginTime = Integer.parseInt(hourStart[0]);
+                        classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                        classHourEndTime = Integer.parseInt(hourEnd[0]);
+                        classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                        Calendar calendarBegin = Calendar.getInstance();
+                        calendarBegin.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
+                                classHourBeginTime, classMinuteBeginTime);
+
+                        Calendar calendarEnd = Calendar.getInstance();
+                        calendarEnd.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
+                                classHourEndTime, classMinuteEndTime);
+
+                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+
+                        System.out.printf("\t\t%s - %s\n", start, end);
+                    }
+
+                    // TUESDAY
+                    System.out.printf("\tTuesday\n");
+                    JSONArray tuesdayList = (JSONArray)actualClasses.get("tuesday");
+                    Iterator<JSONObject> itTuesday = tuesdayList.iterator();
+                    while (itTuesday.hasNext()){
+                        JSONObject actualMonday = itTuesday.next();
+                        String start = (String) actualMonday.get("start");
+                        String end = (String) actualMonday.get("end");
+
+                        hourStart = start.split(":");
+                        hourEnd = end.split(":");
+                        classHourBeginTime = Integer.parseInt(hourStart[0]);
+                        classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                        classHourEndTime = Integer.parseInt(hourEnd[0]);
+                        classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                        Calendar calendarBegin = Calendar.getInstance();
+                        calendarBegin.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
+                                classHourBeginTime, classMinuteBeginTime);
+
+                        Calendar calendarEnd = Calendar.getInstance();
+                        calendarEnd.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
+                                classHourEndTime, classMinuteEndTime);
+
+                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+
+                        System.out.printf("\t\t%s - %s\n", start, end);
+                    }
+
+                    // WEDNESDAY
+                    System.out.printf("\tWednesday\n");
+                    JSONArray wednesdayList = (JSONArray)actualClasses.get("wednesday");
+                    Iterator<JSONObject> itWednesday = wednesdayList.iterator();
+                    while (itWednesday.hasNext()){
+                        JSONObject actualMonday = itWednesday.next();
+                        String start = (String) actualMonday.get("start");
+                        String end = (String) actualMonday.get("end");
+
+                        hourStart = start.split(":");
+                        hourEnd = end.split(":");
+                        classHourBeginTime = Integer.parseInt(hourStart[0]);
+                        classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                        classHourEndTime = Integer.parseInt(hourEnd[0]);
+                        classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                        Calendar calendarBegin = Calendar.getInstance();
+                        calendarBegin.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
+                                classHourBeginTime, classMinuteBeginTime);
+
+                        Calendar calendarEnd = Calendar.getInstance();
+                        calendarEnd.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
+                                classHourEndTime, classMinuteEndTime);
+
+                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+
+                        System.out.printf("\t\t%s - %s\n", start, end);
+                    }
 
 
-                // CREATE CLASSROOM
-                System.out.printf("\nClassroom %s, projector %d, capacity %d, computers %d.\n", name, projector, capacity, computers);
-                schedule.createClassroom(name, (int)projector, (int)capacity, (int)computers);
 
-                // TODO ADD CLASSES
-                JSONObject actualClasses = (JSONObject)actual.get("classes");
+                    // THURSDAY
+                    System.out.printf("\tThursday\n");
+                    JSONArray thursdayList = (JSONArray)actualClasses.get("thursday");
+                    Iterator<JSONObject> itThursday = thursdayList.iterator();
+                    while (itThursday.hasNext()){
+                        JSONObject actualMonday = itThursday.next();
+                        String start = (String) actualMonday.get("start");
+                        String end = (String) actualMonday.get("end");
 
-                // MONDAY
-                System.out.printf("\tMonday\n");
-                JSONArray mondayList = (JSONArray)actualClasses.get("monday");
-                Iterator<JSONObject> itMonday = mondayList.iterator();
-                while (itMonday.hasNext()){
-                    JSONObject actualMonday = itMonday.next();
-                    String start = (String) actualMonday.get("start");
-                    String end = (String) actualMonday.get("end");
+                        hourStart = start.split(":");
+                        hourEnd = end.split(":");
+                        classHourBeginTime = Integer.parseInt(hourStart[0]);
+                        classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                        classHourEndTime = Integer.parseInt(hourEnd[0]);
+                        classMinuteEndTime= Integer.parseInt(hourEnd[1]);
 
-                    hourStart = start.split(":");
-                    hourEnd = end.split(":");
-                    classHourBeginTime = Integer.parseInt(hourStart[0]);
-                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
-                    classHourEndTime = Integer.parseInt(hourEnd[0]);
-                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+                        Calendar calendarBegin = Calendar.getInstance();
+                        calendarBegin.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
+                                classHourBeginTime, classMinuteBeginTime);
 
-                    Calendar calendarBegin = Calendar.getInstance();
-                    calendarBegin.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
-                            classHourBeginTime, classMinuteBeginTime);
+                        Calendar calendarEnd = Calendar.getInstance();
+                        calendarEnd.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
+                                classHourEndTime, classMinuteEndTime);
 
-                    Calendar calendarEnd = Calendar.getInstance();
-                    calendarEnd.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH) + 1, nextMonday.get(Calendar.DATE),
-                            classHourEndTime, classMinuteEndTime);
+                        schedule.addClassroom(name, calendarBegin, calendarEnd);
 
-                    schedule.addClassroom(name, calendarBegin, calendarEnd);
+                        System.out.printf("\t\t%s - %s\n", start, end);
+                    }
 
-                    System.out.printf("\t\t%s - %s\n", start, end);
+
+                    // FRIDAY
+                    System.out.printf("\tFriday\n");
+                    JSONArray fridayList = (JSONArray)actualClasses.get("friday");
+                    Iterator<JSONObject> itFriday = fridayList.iterator();
+                    while (itFriday.hasNext()){
+                        JSONObject actualMonday = itFriday.next();
+                        String start = (String) actualMonday.get("start");
+                        String end = (String) actualMonday.get("end");
+
+                        hourStart = start.split(":");
+                        hourEnd = end.split(":");
+                        classHourBeginTime = Integer.parseInt(hourStart[0]);
+                        classMinuteBeginTime = Integer.parseInt(hourStart[1]);
+                        classHourEndTime = Integer.parseInt(hourEnd[0]);
+                        classMinuteEndTime= Integer.parseInt(hourEnd[1]);
+
+                        Calendar calendarBegin = Calendar.getInstance();
+                        calendarBegin.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
+                                classHourBeginTime, classMinuteBeginTime);
+
+                        Calendar calendarEnd = Calendar.getInstance();
+                        calendarEnd.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
+                                classHourEndTime, classMinuteEndTime);
+
+                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+
+                        System.out.printf("\t\t%s - %s\n", start, end);
+                    }
+
+
+
                 }
-
-                // TUESDAY
-                System.out.printf("\tTuesday\n");
-                JSONArray tuesdayList = (JSONArray)actualClasses.get("tuesday");
-                Iterator<JSONObject> itTuesday = tuesdayList.iterator();
-                while (itTuesday.hasNext()){
-                    JSONObject actualMonday = itTuesday.next();
-                    String start = (String) actualMonday.get("start");
-                    String end = (String) actualMonday.get("end");
-
-                    hourStart = start.split(":");
-                    hourEnd = end.split(":");
-                    classHourBeginTime = Integer.parseInt(hourStart[0]);
-                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
-                    classHourEndTime = Integer.parseInt(hourEnd[0]);
-                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
-
-                    Calendar calendarBegin = Calendar.getInstance();
-                    calendarBegin.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
-                            classHourBeginTime, classMinuteBeginTime);
-
-                    Calendar calendarEnd = Calendar.getInstance();
-                    calendarEnd.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH) + 1, nextTuesday.get(Calendar.DATE),
-                            classHourEndTime, classMinuteEndTime);
-
-                    schedule.addClassroom(name, calendarBegin, calendarEnd);
-
-                    System.out.printf("\t\t%s - %s\n", start, end);
-                }
-
-                // WEDNESDAY
-                System.out.printf("\tWednesday\n");
-                JSONArray wednesdayList = (JSONArray)actualClasses.get("wednesday");
-                Iterator<JSONObject> itWednesday = wednesdayList.iterator();
-                while (itWednesday.hasNext()){
-                    JSONObject actualMonday = itWednesday.next();
-                    String start = (String) actualMonday.get("start");
-                    String end = (String) actualMonday.get("end");
-
-                    hourStart = start.split(":");
-                    hourEnd = end.split(":");
-                    classHourBeginTime = Integer.parseInt(hourStart[0]);
-                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
-                    classHourEndTime = Integer.parseInt(hourEnd[0]);
-                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
-
-                    Calendar calendarBegin = Calendar.getInstance();
-                    calendarBegin.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
-                            classHourBeginTime, classMinuteBeginTime);
-
-                    Calendar calendarEnd = Calendar.getInstance();
-                    calendarEnd.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH) + 1, nextWednesday.get(Calendar.DATE),
-                            classHourEndTime, classMinuteEndTime);
-
-                    schedule.addClassroom(name, calendarBegin, calendarEnd);
-
-                    System.out.printf("\t\t%s - %s\n", start, end);
-                }
-
-
-
-                // THURSDAY
-                System.out.printf("\tThursday\n");
-                JSONArray thursdayList = (JSONArray)actualClasses.get("thursday");
-                Iterator<JSONObject> itThursday = thursdayList.iterator();
-                while (itThursday.hasNext()){
-                    JSONObject actualMonday = itThursday.next();
-                    String start = (String) actualMonday.get("start");
-                    String end = (String) actualMonday.get("end");
-
-                    hourStart = start.split(":");
-                    hourEnd = end.split(":");
-                    classHourBeginTime = Integer.parseInt(hourStart[0]);
-                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
-                    classHourEndTime = Integer.parseInt(hourEnd[0]);
-                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
-
-                    Calendar calendarBegin = Calendar.getInstance();
-                    calendarBegin.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
-                            classHourBeginTime, classMinuteBeginTime);
-
-                    Calendar calendarEnd = Calendar.getInstance();
-                    calendarEnd.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH) + 1, nextThursday.get(Calendar.DATE),
-                            classHourEndTime, classMinuteEndTime);
-
-                    schedule.addClassroom(name, calendarBegin, calendarEnd);
-
-                    System.out.printf("\t\t%s - %s\n", start, end);
-                }
-
-
-                // FRIDAY
-                System.out.printf("\tFriday\n");
-                JSONArray fridayList = (JSONArray)actualClasses.get("friday");
-                Iterator<JSONObject> itFriday = fridayList.iterator();
-                while (itFriday.hasNext()){
-                    JSONObject actualMonday = itFriday.next();
-                    String start = (String) actualMonday.get("start");
-                    String end = (String) actualMonday.get("end");
-
-                    hourStart = start.split(":");
-                    hourEnd = end.split(":");
-                    classHourBeginTime = Integer.parseInt(hourStart[0]);
-                    classMinuteBeginTime = Integer.parseInt(hourStart[1]);
-                    classHourEndTime = Integer.parseInt(hourEnd[0]);
-                    classMinuteEndTime= Integer.parseInt(hourEnd[1]);
-
-                    Calendar calendarBegin = Calendar.getInstance();
-                    calendarBegin.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
-                            classHourBeginTime, classMinuteBeginTime);
-
-                    Calendar calendarEnd = Calendar.getInstance();
-                    calendarEnd.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH) + 1, nextFriday.get(Calendar.DATE),
-                            classHourEndTime, classMinuteEndTime);
-
-                    schedule.addClassroom(name, calendarBegin, calendarEnd);
-
-                    System.out.printf("\t\t%s - %s\n", start, end);
-                }
-
-
-
             }
-        }
-        catch (IOException e) {
-            System.err.println("I/O exception: " + e);
-        }
-        catch (ParseException e) {
-            System.err.println("Error parson JSON file");
+            catch (IOException e) {
+                System.err.println("I/O exception: " + e);
+                return false;
+            }
+            catch (ParseException e) {
+                System.err.println("Error parson JSON file");
+                return false;
+            }
+
+            nextMonday.add(Calendar.DATE, 7);
+            nextTuesday.add(Calendar.DATE, 7);
+            nextWednesday.add(Calendar.DATE, 7);
+            nextThursday.add(Calendar.DATE, 7);
+            nextFriday.add(Calendar.DATE, 7);
+            count++;
         }
 
-
-        return false;
+        return true;
     }
 
     /**
@@ -239,8 +247,8 @@ public class TextUI {
      * @param day_of_week
      * @return
      */
-    private static Calendar getNextDayOfWeek(int day_of_week){
-        Calendar calendar = Calendar.getInstance();
+    private static Calendar getNextDayOfWeek(Calendar cal, int day_of_week){
+        Calendar calendar = cal.getInstance();
         while(calendar.get(Calendar.DAY_OF_WEEK) != day_of_week){
             calendar.add(Calendar.DATE, 1);
         }
