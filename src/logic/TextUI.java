@@ -48,37 +48,34 @@ public class TextUI {
      */
     public void mainMenu(){
         Scanner scanner = new Scanner(System.in);
-        // clear console
-        clearConsole();
+        String input;
+        do {
+            // clear console
+            clearConsole();
 
-        // title
-        System.out.printf("\n\tMain menu\n%s\n\n", newLine);
+            // title
+            System.out.printf("\n\tMain menu\n%s\n\n", newLine);
 
-        // available options
-        System.out.printf("\t1-View Schedule\n\t2-View schedule by parameters\n\t3-Fast schedule\n\t4-Remove schedule\n\t5-Remove base schedule\n\n\t0-Exit\n\n");
+            // available options
+            System.out.print("\t1-View Schedule\n\t2-View schedule by parameters\n\t3-Fast schedule\n\t4-Remove schedule\n\t5-Remove base schedule\n\n\t0-Exit\n\n");
 
-        // user input
-        System.out.printf("\tEnter your choice: ");
+            // user input
+            System.out.print("\tEnter your choice: ");
 
-        // get user input
-        String input = scanner.nextLine();
+            // get user input
+            input = scanner.nextLine();
 
-        switch(input){
-            case "1":
-                viewScheduleMenu(); break;
-            case "2":
-                viewScheduleByParametersMenu(); break;
-            case "3":
-                fastScheduleMenu(); break;
-            case "4":
-                removeScheduleMenu(); break;
-            case "5":
-                removeBaseScheduleMenu(); break;
-            case "0":
-                System.exit(0);
-            default:
-                System.out.println("Invalid option.");
-        }
+            switch (input) {
+                case "1" -> viewScheduleMenu();
+                case "2" -> viewScheduleByParametersMenu();
+                case "3" -> fastScheduleMenu();
+                case "4" -> removeScheduleMenu();
+                case "5" -> removeBaseScheduleMenu();
+                case "0" -> System.out.println("The software will now exit.");
+                default -> System.out.println("Invalid option.");
+            }
+            scanner.nextLine();
+        } while (!input.equals("0"));
     }
 
 
@@ -97,13 +94,17 @@ public class TextUI {
         input = scanner.nextLine();
         classroom = schedule.viewSchedule(input);
 
+        // classroom not found
+        if(classroom == null){
+            System.out.println("Classroom not found.");
+            return;
+        }
+
         // print classroom data
         System.out.printf("\n\n\tSchedule of classroom %s:\n", input);
         for (var cr: classroom) {
             System.out.printf("\n\t%s", cr);
         }
-
-        mainMenu();
     }
 
     /**
@@ -201,8 +202,6 @@ public class TextUI {
         }
 
         System.out.printf("\n\t<press any key to return to the main menu>\n");
-
-        mainMenu();
     }
 
     /**
@@ -227,7 +226,6 @@ public class TextUI {
         // TODO remove schedule by index
 
         String input = scanner.nextLine();
-        mainMenu();
     }
 
     /**
@@ -254,7 +252,6 @@ public class TextUI {
         // TODO remove base schedule by index
 
         String input = scanner.nextLine();
-        mainMenu();
     }
 
     /**
@@ -285,14 +282,14 @@ public class TextUI {
         System.out.printf("\n\t<press any key to return to the main menu>\n");
 
         String input = scanner.nextLine();
-        mainMenu();
     }
 
     /**
      * Clear the console
      */
     public void clearConsole(){
-
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }

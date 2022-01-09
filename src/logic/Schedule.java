@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Schedule {
-    private List<Classroom> classrooms = new ArrayList<>();
+    private final List<Classroom> classrooms = new ArrayList<>();
 
     public List<ClassDate> viewSchedule(String className){
         for (var classroom: classrooms) {
@@ -28,7 +28,7 @@ public class Schedule {
      */
     public List<Classroom> viewScheduleByParameters(Calendar start, Calendar end, int capacity, int computers, int projector){
         List<Classroom> classroomList = new ArrayList<>();
-        List<ClassDate> classes = new ArrayList<>();
+        List<ClassDate> classes;
         boolean isClassAvailable = true;
 
         for(Classroom temp:classrooms){
