@@ -353,7 +353,7 @@ public class TextUI {
         if(!date.equals("")){
             dates = date.split("-");
             if (dates.length != 3){
-                System.out.println("Error! The input entered for day field must be: yyyy-MM-dd");
+                System.out.println("\tError! The input entered for day field must be: yyyy-MM-dd");
                 return;
             }
         }
@@ -362,7 +362,7 @@ public class TextUI {
         if(!dateEnd.equals("")){
             datesEnd = dateEnd.split("-");
             if (datesEnd.length != 3){
-                System.out.println("Error! The input entered for day field must be: yyyy-MM-dd");
+                System.out.println("\tError! The input entered for day field must be: yyyy-MM-dd");
                 return;
             }
         }
@@ -371,7 +371,7 @@ public class TextUI {
         if(!start.equals("")){
             hourBegin = start.split(":");
             if (hourBegin.length != 2){
-                System.out.println("Error! The input entered for start time must be: HH:mm");
+                System.out.println("\tError! The input entered for start time must be: HH:mm");
                 return;
             }
         }
@@ -380,7 +380,7 @@ public class TextUI {
         if(!end.equals("")) {
             hourEnd = end.split(":");
             if (hourEnd.length != 2) {
-                System.out.println("Error! The input entered for end time must be: HH:mm");
+                System.out.println("\tError! The input entered for end time must be: HH:mm");
                 return;
             }
         }
@@ -439,7 +439,7 @@ public class TextUI {
             }
         }
         catch (NumberFormatException ex){
-            System.out.println("Error! The input entered is not valid!");
+            System.out.println("\tError! The input entered is not valid!");
             return;
         }
 
@@ -488,7 +488,7 @@ public class TextUI {
 
         // handle input
         if (name.length() < 1){
-            System.out.println("Error! The input entered for classroom name cannot be empty.");
+            System.out.println("\tError! The input entered for classroom name cannot be empty.");
             return;
         }
 
@@ -496,7 +496,7 @@ public class TextUI {
         if(!dayStr.equals("")){
             dates = dayStr.split("-");
             if (dates.length != 3){
-                System.out.println("Error! The input entered for day field must be: yyyy-MM-dd");
+                System.out.println("\tError! The input entered for day field must be: yyyy-MM-dd");
                 return;
             }
         }
@@ -505,7 +505,7 @@ public class TextUI {
         if(!start.equals("")){
             hourBegin = start.split(":");
             if (hourBegin.length != 2){
-                System.out.println("Error! The input entered for start time must be: HH:mm");
+                System.out.println("\tError! The input entered for start time must be: HH:mm");
                 return;
             }
         }
@@ -514,7 +514,7 @@ public class TextUI {
         if(!end.equals("")) {
             hourEnd = end.split(":");
             if (hourEnd.length != 2) {
-                System.out.println("Error! The input entered for end time must be: HH:mm");
+                System.out.println("\tError! The input entered for end time must be: HH:mm");
                 return;
             }
         }
@@ -561,7 +561,7 @@ public class TextUI {
         indexStr = scanner.nextLine();
 
         if (indexStr.equals("")){
-            System.out.println("Error! The input entered for index is invalid!");
+            System.out.println("\tError! The input entered for index is invalid!");
             return;
         }
 
@@ -570,12 +570,12 @@ public class TextUI {
             index = Integer.parseInt(indexStr);
         }
         catch (NumberFormatException e){
-            System.out.println("Error! The input entered for index must be a number!");
+            System.out.println("\tError! The input entered for index must be a number!");
             return;
         }
 
         if (index < 0 || index > classDateList.size()){
-            System.out.println("Error! The input entered for index must be between 0 and " + classDateList.size() + " !");
+            System.out.println("\tError! The input entered for index must be between 0 and " + classDateList.size() + " !");
             return;
         }
 
@@ -609,6 +609,16 @@ public class TextUI {
         System.out.printf("\n\tRemove base schedule\n%s\n\n", newLine);
 
         // user input
+        System.out.println("\tEnter credentials for base schedule removal:");
+        System.out.print("\t- Username: ");
+        String user = scanner.nextLine();
+        System.out.print("\t- Password: ");
+        String pass = scanner.nextLine();
+        if(!(user.equals("admin") && pass.equals("root"))){
+            System.out.println("\tInvalid credentials, returning to main menu.");
+            return;
+        }
+
         System.out.print("\tEnter the classroom name: ");
         name = scanner.nextLine();
 
@@ -623,7 +633,7 @@ public class TextUI {
 
         // handle input
         if (name.length() < 1){
-            System.out.println("Error! The input entered for classroom name cannot be empty.");
+            System.out.println("\tError! The input entered for classroom name cannot be empty.");
             return;
         }
 
@@ -631,7 +641,7 @@ public class TextUI {
         if(!dayStr.equals("")){
             dates = dayStr.split("-");
             if (dates.length != 3){
-                System.out.println("Error! The input entered for day field must be: yyyy-MM-dd");
+                System.out.println("\tError! The input entered for day field must be: yyyy-MM-dd");
                 return;
             }
         }
@@ -640,7 +650,7 @@ public class TextUI {
         if(!start.equals("")){
             hourBegin = start.split(":");
             if (hourBegin.length != 2){
-                System.out.println("Error! The input entered for start time must be: HH:mm");
+                System.out.println("\tError! The input entered for start time must be: HH:mm");
                 return;
             }
         }
@@ -649,7 +659,7 @@ public class TextUI {
         if(!end.equals("")) {
             hourEnd = end.split(":");
             if (hourEnd.length != 2) {
-                System.out.println("Error! The input entered for end time must be: HH:mm");
+                System.out.println("\tError! The input entered for end time must be: HH:mm");
                 return;
             }
         }
@@ -694,7 +704,7 @@ public class TextUI {
         indexStr = scanner.nextLine();
 
         if (indexStr.equals("")){
-            System.out.println("Error! The input entered for index is invalid!");
+            System.out.println("\tError! The input entered for index is invalid!");
             return;
         }
 
@@ -703,12 +713,12 @@ public class TextUI {
             index = Integer.parseInt(indexStr);
         }
         catch (NumberFormatException e){
-            System.out.println("Error! The input entered for index must be a number!");
+            System.out.println("\tError! The input entered for index must be a number!");
             return;
         }
 
         if (index < 0 || index > classDateList.size()){
-            System.out.println("Error! The input entered for index must be between 0 and " + classDateList.size() + " !");
+            System.out.println("\tError! The input entered for index must be between 0 and " + classDateList.size() + " !");
             return;
         }
 
