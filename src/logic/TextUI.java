@@ -45,7 +45,7 @@ public class TextUI {
 
             // parse JSON file
             try {
-                Object object = parser.parse(new FileReader("src/logic/deis_schedule.json"));
+                Object object = parser.parse(new FileReader("../../../src/logic/deis_schedule.json"));
 
                 // typecast obk to JSONObject
                 JSONObject jsonObject = (JSONObject) object;
@@ -842,9 +842,23 @@ public class TextUI {
     /**
      * Clear the console
      */
-    public void clearConsole(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    public static void clearConsole(){
+        try{
+            String operatingSystem = System.getProperty("os.name"); //Check the current operating system
+
+            if(operatingSystem.contains("Windows")){
+                ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");
+                Process startProcess = pb.inheritIO().start();
+                startProcess.waitFor();
+            } else {
+                ProcessBuilder pb = new ProcessBuilder("clear");
+                Process startProcess = pb.inheritIO().start();
+
+                startProcess.waitFor();
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 
 }
