@@ -63,7 +63,7 @@ public class Schedule {
             if (temp.getComputers() < computers && computers != -1){
                 continue;
             }
-            if(temp.checkClass(new ClassDate(start, end)))
+            if(temp.checkClass(new ClassDate(start, end, true)) || temp.checkClass(new ClassDate(start, end, false)))
                 continue;
             sb.append("\n\tClassroom ").append(temp.getName()).append(" has:\n");
             sb.append("\t").append(temp.getCapacity()).append(" seats\n");
@@ -92,8 +92,8 @@ public class Schedule {
         return sb.toString();
     }
 
-    public boolean addClassroom(String name, Calendar begin, Calendar end){
-        ClassDate cd = new ClassDate(begin,end);
+    public boolean addClassroom(String name, Calendar begin, Calendar end, boolean isBase){
+        ClassDate cd = new ClassDate(begin,end, isBase);
         for (var classroom: classrooms) {
             if(classroom.getName().equalsIgnoreCase(name)){
                 if(checkClassDate(classroom, cd)) {
@@ -123,7 +123,7 @@ public class Schedule {
             if (cr.getComputers() < computers && computers != -1){
                 continue;
             }
-            if(cr.checkClass(new ClassDate(begin,end))){
+            if(cr.checkClass(new ClassDate(begin,end, true)) || cr.checkClass(new ClassDate(begin,end, false))){
                 count++;
                 sb.append("\t- ").append(cr.getName()).append("\n");
             }

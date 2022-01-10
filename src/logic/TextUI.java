@@ -62,7 +62,7 @@ public class TextUI {
 
 
                     // CREATE CLASSROOM
-                    System.out.printf("\nClassroom %s, projector %d, capacity %d, computers %d.\n", name, projector, capacity, computers);
+                    //System.out.printf("\nClassroom %s, projector %d, capacity %d, computers %d.\n", name, projector, capacity, computers);
                     if (count == 0){
                         schedule.createClassroom(name, (int)projector, (int)capacity, (int)computers);
                     }
@@ -71,7 +71,7 @@ public class TextUI {
                     JSONObject actualClasses = (JSONObject)actual.get("classes");
 
                     // MONDAY
-                    System.out.printf("\tMonday\n");
+                    //System.out.printf("\tMonday\n");
                     JSONArray mondayList = (JSONArray)actualClasses.get("monday");
                     Iterator<JSONObject> itMonday = mondayList.iterator();
                     while (itMonday.hasNext()){
@@ -94,13 +94,13 @@ public class TextUI {
                         calendarEnd.set(nextMonday.get(Calendar.YEAR), nextMonday.get(Calendar.MONTH), nextMonday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
-                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+                        schedule.addClassroom(name, calendarBegin, calendarEnd, true);
 
-                        System.out.printf("\t\t%s - %s\n", start, end);
+                        //System.out.printf("\t\t%s - %s\n", start, end);
                     }
 
                     // TUESDAY
-                    System.out.printf("\tTuesday\n");
+                    //System.out.printf("\tTuesday\n");
                     JSONArray tuesdayList = (JSONArray)actualClasses.get("tuesday");
                     Iterator<JSONObject> itTuesday = tuesdayList.iterator();
                     while (itTuesday.hasNext()){
@@ -123,13 +123,13 @@ public class TextUI {
                         calendarEnd.set(nextTuesday.get(Calendar.YEAR), nextTuesday.get(Calendar.MONTH), nextTuesday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
-                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+                        schedule.addClassroom(name, calendarBegin, calendarEnd, true);
 
-                        System.out.printf("\t\t%s - %s\n", start, end);
+                        //System.out.printf("\t\t%s - %s\n", start, end);
                     }
 
                     // WEDNESDAY
-                    System.out.printf("\tWednesday\n");
+                    //System.out.printf("\tWednesday\n");
                     JSONArray wednesdayList = (JSONArray)actualClasses.get("wednesday");
                     Iterator<JSONObject> itWednesday = wednesdayList.iterator();
                     while (itWednesday.hasNext()){
@@ -152,15 +152,15 @@ public class TextUI {
                         calendarEnd.set(nextWednesday.get(Calendar.YEAR), nextWednesday.get(Calendar.MONTH), nextWednesday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
-                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+                        schedule.addClassroom(name, calendarBegin, calendarEnd, true);
 
-                        System.out.printf("\t\t%s - %s\n", start, end);
+                        //System.out.printf("\t\t%s - %s\n", start, end);
                     }
 
 
 
                     // THURSDAY
-                    System.out.printf("\tThursday\n");
+                    //System.out.printf("\tThursday\n");
                     JSONArray thursdayList = (JSONArray)actualClasses.get("thursday");
                     Iterator<JSONObject> itThursday = thursdayList.iterator();
                     while (itThursday.hasNext()){
@@ -183,14 +183,14 @@ public class TextUI {
                         calendarEnd.set(nextThursday.get(Calendar.YEAR), nextThursday.get(Calendar.MONTH), nextThursday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
-                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+                        schedule.addClassroom(name, calendarBegin, calendarEnd, true);
 
-                        System.out.printf("\t\t%s - %s\n", start, end);
+                        //System.out.printf("\t\t%s - %s\n", start, end);
                     }
 
 
                     // FRIDAY
-                    System.out.printf("\tFriday\n");
+                    //System.out.printf("\tFriday\n");
                     JSONArray fridayList = (JSONArray)actualClasses.get("friday");
                     Iterator<JSONObject> itFriday = fridayList.iterator();
                     while (itFriday.hasNext()){
@@ -213,9 +213,9 @@ public class TextUI {
                         calendarEnd.set(nextFriday.get(Calendar.YEAR), nextFriday.get(Calendar.MONTH), nextFriday.get(Calendar.DATE),
                                 classHourEndTime, classMinuteEndTime);
 
-                        schedule.addClassroom(name, calendarBegin, calendarEnd);
+                        schedule.addClassroom(name, calendarBegin, calendarEnd, true);
 
-                        System.out.printf("\t\t%s - %s\n", start, end);
+                        //System.out.printf("\t\t%s - %s\n", start, end);
                     }
 
 
@@ -604,7 +604,7 @@ public class TextUI {
             return;
         System.out.print("Choose a classroom: ");
         String choice = scanner.nextLine();
-        if(schedule.addClassroom(choice, calendarBegin, calendarEnd))
+        if(schedule.addClassroom(choice, calendarBegin, calendarEnd, false))
             System.out.println("Scheduled successfully.\n");
         else
             System.out.println("Invalid name.");

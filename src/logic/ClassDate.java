@@ -8,15 +8,17 @@ public class ClassDate {
 
     private final Calendar begin;
     private final Calendar end;
+    private boolean isBase;
 
     /**
      * Constructor
      * @param begin begin time
      * @param end end time
      */
-    public ClassDate(Calendar begin, Calendar end){
+    public ClassDate(Calendar begin, Calendar end, boolean isBase){
         this.begin = begin;
         this.end = end;
+        this.isBase = isBase;
     }
 
     /**
@@ -33,6 +35,10 @@ public class ClassDate {
      */
     public Calendar getEnd() {
         return end;
+    }
+
+    public boolean getIsBase(){
+        return isBase;
     }
 
     // TODO review return

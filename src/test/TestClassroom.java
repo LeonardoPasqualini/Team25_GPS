@@ -32,7 +32,7 @@ public class TestClassroom {
         Calendar end = Calendar.getInstance();
         end.add(Calendar.HOUR, 2);
 
-        ClassDate newClass = new ClassDate(begin, end);
+        ClassDate newClass = new ClassDate(begin, end, false);
 
         classroom.addClass(newClass);
 
@@ -56,9 +56,9 @@ public class TestClassroom {
         b3.add(Calendar.HOUR, 8);
         e3.add(Calendar.HOUR, 10);
 
-        ClassDate firstClass = new ClassDate(b1, e1);
-        ClassDate secondClass = new ClassDate(b2, e2);
-        ClassDate thirdClass = new ClassDate(b3, e3);
+        ClassDate firstClass = new ClassDate(b1, e1, false);
+        ClassDate secondClass = new ClassDate(b2, e2, false);
+        ClassDate thirdClass = new ClassDate(b3, e3, false);
 
         classroom.addClass(firstClass);
         classroom.addClass(secondClass);
