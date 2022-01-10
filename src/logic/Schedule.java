@@ -92,6 +92,33 @@ public class Schedule {
         return sb.toString();
     }
 
+    /**
+     * Get all classes that start after or at the same time as start AND classes that end
+     * before or at the same time as end
+     * @param name Classroom name
+     * @param start start time
+     * @param end end time
+     * @return List of ClassDate
+     */
+    public List<ClassDate> getClassesByParameters(String name, Calendar start, Calendar end){
+        List<ClassDate> classDateList = new ArrayList<>();
+
+        for (Classroom temp:classrooms){
+            // check name
+            if (temp.getName().equalsIgnoreCase(name)){
+                List<ClassDate> classes = temp.getClasses();
+                for(ClassDate classDate: classes){
+                    Calendar classDateBegin = classDate.getBegin();
+                    if (classDateBegin.compareTo(start) >= 0 && classDateBegin.compareTo(end) <= 0){
+                        classDateList.add(classDate);
+                    }
+                }
+            }
+        }
+
+        return  classDateList;
+    }
+
     public boolean addClassroom(String name, Calendar begin, Calendar end, boolean isBase){
         ClassDate cd = new ClassDate(begin,end, isBase);
         for (var classroom: classrooms) {
@@ -102,6 +129,51 @@ public class Schedule {
                 }
             }
         }
+        return false;
+    }
+
+
+    public boolean removeClass(String name, ClassDate classDateToRemove){
+        for (Classroom temp:classrooms){
+            // check name
+            if (temp.getName().equalsIgnoreCase(name)){
+                List<ClassDate> classes = temp.getClasses();
+                for(ClassDate classDate: classes){
+                    if (classDate.equals(classDateToRemove)){
+                        if (!classDate.getIsBase()){
+                            classes.remove(classDateToRemove);
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean removeBaseClass(String name, ClassDate classDateToRemove){
+        for (Classroom temp:classrooms){
+            // check name
+            if (temp.getName().equalsIgnoreCase(name)){
+                List<ClassDate> classes = temp.getClasses();
+                for(ClassDate classDate: classes){
+                    if (classDate.equals(classDateToRemove)){
+                        if (classDate.getIsBase()){
+                            classes.remove(classDateToRemove);
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
         return false;
     }
 

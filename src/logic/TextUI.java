@@ -332,16 +332,16 @@ public class TextUI {
         System.out.print("\tEnter the end day (yyyy-MM-dd): ");
         dateEnd = scanner.nextLine();
 
-        System.out.print("\n\tEnter start time: ");
+        System.out.print("\tEnter start time: ");
         start = scanner.nextLine();
 
-        System.out.print("\n\tEnter end time: ");
+        System.out.print("\tEnter end time: ");
         end = scanner.nextLine();
 
-        System.out.print("\n\tEnter minimum capacity: ");
+        System.out.print("\tEnter minimum capacity: ");
         capacityStr = scanner.nextLine();
 
-        System.out.print("\n\tNumber of computers: ");
+        System.out.print("\tNumber of computers: ");
         computersStr = scanner.nextLine();
 
         System.out.print("\n\tProjectors: ");
@@ -463,23 +463,135 @@ public class TextUI {
      */
     public void removeScheduleMenu(){
         Scanner scanner = new Scanner(System.in);
+        String name, dayStr, start, end, indexStr;
+        Calendar calendarBegin = Calendar.getInstance();
+        Calendar calendarEnd = Calendar.getInstance();
+        int year, day, month;
+        int hourB, minuteB, hourE, minuteE;
+        int index;
+
         // title
         System.out.printf("\n\tRemove schedule\n%s\n\n", newLine);
 
         // user input
-        System.out.printf("\tEnter the classroom name: ");
-        System.out.printf("\n\tEnter the day: ");
-        System.out.printf("\n\tEnter start time: ");
-        System.out.printf("\n\tEnter end time: ");
+        System.out.print("\tEnter the classroom name: ");
+        name = scanner.nextLine();
 
-        System.out.printf("\n\n\tThere are %d schedules matching your criteria.\n", 2);
-        System.out.printf("\t\t1. 10:30 - 12:30\n");
-        System.out.printf("\t\t1. 14:30 - 16:30\n");
+        System.out.print("\tEnter the day (yyyy-MM-dd): ");
+        dayStr = scanner.nextLine();
 
-        System.out.println("\n\tInsert schedule index to remove or 0 to return to the main menu: ");
-        // TODO remove schedule by index
+        System.out.print("\tEnter start time: ");
+        start = scanner.nextLine();
 
-        String input = scanner.nextLine();
+        System.out.print("\tEnter end time: ");
+        end = scanner.nextLine();
+
+        // handle input
+        if (name.length() < 1){
+            System.out.println("Error! The input entered for classroom name cannot be empty.");
+            return;
+        }
+
+        String[] dates = null;
+        if(!dayStr.equals("")){
+            dates = dayStr.split("-");
+            if (dates.length != 3){
+                System.out.println("Error! The input entered for day field must be: yyyy-MM-dd");
+                return;
+            }
+        }
+
+        String[] hourBegin = null;
+        if(!start.equals("")){
+            hourBegin = start.split(":");
+            if (hourBegin.length != 2){
+                System.out.println("Error! The input entered for start time must be: HH:mm");
+                return;
+            }
+        }
+
+        String[] hourEnd = null;
+        if(!end.equals("")) {
+            hourEnd = end.split(":");
+            if (hourEnd.length != 2) {
+                System.out.println("Error! The input entered for end time must be: HH:mm");
+                return;
+            }
+        }
+
+        // date
+        if(dates != null) {
+            year = Integer.parseInt(dates[0]);
+            month = Integer.parseInt(dates[1]);
+            day = Integer.parseInt(dates[2]);
+        }
+        else {
+            year = 1900;
+            month = 1;
+            day = 1;
+        }
+
+        // time
+        if(hourBegin != null && hourEnd != null) {
+            hourB = Integer.parseInt(hourBegin[0]);
+            minuteB = Integer.parseInt(hourBegin[1]);
+            hourE = Integer.parseInt(hourEnd[0]);
+            minuteE = Integer.parseInt(hourEnd[1]);
+        }
+        else {
+            hourB = 0;
+            minuteB = 0;
+            hourE = 23;
+            minuteE = 59;
+        }
+
+        calendarBegin.set(year, month-1, day, hourB, minuteB);
+        calendarEnd.set(year, month-1, day, hourE, minuteE);
+
+        // search
+        List<ClassDate> classDateList = schedule.getClassesByParameters(name, calendarBegin, calendarEnd);
+
+        System.out.printf("\n\tThere are %d schedules matching your criteria.\n", classDateList.size());
+        for (int i = 0; i < classDateList.size(); i++) {
+            System.out.printf("\t\t%d. %s\n", (i+1), classDateList.get(i));
+        }
+
+
+        System.out.printf("\n\tInsert schedule index to remove or 0 to return to the main menu: ");
+        indexStr = scanner.nextLine();
+
+        if (indexStr.equals("")){
+            System.out.println("Error! The input entered for index is invalid!");
+            return;
+        }
+
+        // convert str to int
+        try {
+            index = Integer.parseInt(indexStr);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Error! The input entered for index must be a number!");
+            return;
+        }
+
+        if (index < 0 || index > classDateList.size()){
+            System.out.println("Error! The input entered for index must be between 0 and " + classDateList.size() + " !");
+            return;
+        }
+
+        if (index == 0){
+            return;
+        }
+
+        // remove schedule by index
+        if (schedule.removeClass(name, classDateList.get(index-1))){
+            System.out.println("\tClass removed.");
+        }
+        else {
+            System.out.println("\tError! Unable to remove the class.");
+        }
+
+        System.out.print("\n\t<press any key to return to the main menu>\n");
     }
 
     /**
@@ -487,25 +599,132 @@ public class TextUI {
      */
     public void removeBaseScheduleMenu(){
         Scanner scanner = new Scanner(System.in);
+        String name, dayStr, start, end, indexStr;
+        Calendar calendarBegin = Calendar.getInstance();
+        Calendar calendarEnd = Calendar.getInstance();
+        int year, day, month;
+        int hourB, minuteB, hourE, minuteE;
+        int index;
         // title
         System.out.printf("\n\tRemove base schedule\n%s\n\n", newLine);
 
         // user input
-        System.out.printf("\tEnter the classroom name: ");
-        System.out.printf("\n\tEnter the day: ");
-        System.out.printf("\n\tEnter start time: ");
-        System.out.printf("\n\tEnter end time: ");
+        System.out.print("\tEnter the classroom name: ");
+        name = scanner.nextLine();
 
-        System.out.printf("\n\n\tThere are %d schedules matching your criteria.\n", 4);
-        System.out.printf("\t\t1. 10:30 - 12:30\n");
-        System.out.printf("\t\t1. 14:30 - 16:30\n");
-        System.out.printf("\t\t1. 16:30 - 18:30\n");
-        System.out.printf("\t\t1. 19:00 - 21:00\n");
+        System.out.print("\tEnter the day (yyyy-MM-dd): ");
+        dayStr = scanner.nextLine();
 
-        System.out.println("\n\tInsert schedule index to remove or 0 to return to the main menu: ");
-        // TODO remove base schedule by index
+        System.out.print("\tEnter start time: ");
+        start = scanner.nextLine();
 
-        String input = scanner.nextLine();
+        System.out.print("\tEnter end time: ");
+        end = scanner.nextLine();
+
+        // handle input
+        if (name.length() < 1){
+            System.out.println("Error! The input entered for classroom name cannot be empty.");
+            return;
+        }
+
+        String[] dates = null;
+        if(!dayStr.equals("")){
+            dates = dayStr.split("-");
+            if (dates.length != 3){
+                System.out.println("Error! The input entered for day field must be: yyyy-MM-dd");
+                return;
+            }
+        }
+
+        String[] hourBegin = null;
+        if(!start.equals("")){
+            hourBegin = start.split(":");
+            if (hourBegin.length != 2){
+                System.out.println("Error! The input entered for start time must be: HH:mm");
+                return;
+            }
+        }
+
+        String[] hourEnd = null;
+        if(!end.equals("")) {
+            hourEnd = end.split(":");
+            if (hourEnd.length != 2) {
+                System.out.println("Error! The input entered for end time must be: HH:mm");
+                return;
+            }
+        }
+
+        // date
+        if(dates != null) {
+            year = Integer.parseInt(dates[0]);
+            month = Integer.parseInt(dates[1]);
+            day = Integer.parseInt(dates[2]);
+        }
+        else {
+            year = 1900;
+            month = 1;
+            day = 1;
+        }
+
+        // time
+        if(hourBegin != null && hourEnd != null) {
+            hourB = Integer.parseInt(hourBegin[0]);
+            minuteB = Integer.parseInt(hourBegin[1]);
+            hourE = Integer.parseInt(hourEnd[0]);
+            minuteE = Integer.parseInt(hourEnd[1]);
+        }
+        else {
+            hourB = 0;
+            minuteB = 0;
+            hourE = 23;
+            minuteE = 59;
+        }
+
+        calendarBegin.set(year, month-1, day, hourB, minuteB);
+        calendarEnd.set(year, month-1, day, hourE, minuteE);
+
+        // search
+        List<ClassDate> classDateList = schedule.getClassesByParameters(name, calendarBegin, calendarEnd);
+
+        System.out.printf("\n\tThere are %d schedules matching your criteria.\n", classDateList.size());
+        for (int i = 0; i < classDateList.size(); i++) {
+            System.out.printf("\t\t%d. %s\n", (i+1), classDateList.get(i));
+        }
+        System.out.printf("\n\tInsert schedule index to remove or 0 to return to the main menu: ");
+        indexStr = scanner.nextLine();
+
+        if (indexStr.equals("")){
+            System.out.println("Error! The input entered for index is invalid!");
+            return;
+        }
+
+        // convert str to int
+        try {
+            index = Integer.parseInt(indexStr);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Error! The input entered for index must be a number!");
+            return;
+        }
+
+        if (index < 0 || index > classDateList.size()){
+            System.out.println("Error! The input entered for index must be between 0 and " + classDateList.size() + " !");
+            return;
+        }
+
+        if (index == 0){
+            return;
+        }
+
+        // remove schedule by index
+        if (schedule.removeBaseClass(name, classDateList.get(index-1))){
+            System.out.println("\tBase class removed.");
+        }
+        else {
+            System.out.println("\tError! Unable to remove the class.");
+        }
+
+        System.out.print("\n\t<press any key to return to the main menu>\n");
     }
 
     /**
