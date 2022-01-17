@@ -19,6 +19,7 @@ public class TextUI {
 
         if(!populateBaseSchedule()){
             System.out.println("Error populating schedule.");
+            return;
         }
 
         textUi.mainMenu();
@@ -45,6 +46,7 @@ public class TextUI {
 
             // parse JSON file
             try {
+                // ../../../src/logic/deis_schedule.json
                 Object object = parser.parse(new FileReader("../../../src/logic/deis_schedule.json"));
 
                 // typecast obk to JSONObject
@@ -545,8 +547,8 @@ public class TextUI {
             minuteE = 59;
         }
 
-        calendarBegin.set(year, month-1, day, hourB, minuteB);
-        calendarEnd.set(year, month-1, day, hourE, minuteE);
+        calendarBegin.set(year, month-1, day, hourB, minuteB, 0);
+        calendarEnd.set(year, month-1, day, hourE, minuteE, 0);
 
         // search
         List<ClassDate> classDateList = schedule.getClassesByParameters(name, calendarBegin, calendarEnd);
@@ -690,8 +692,8 @@ public class TextUI {
             minuteE = 59;
         }
 
-        calendarBegin.set(year, month-1, day, hourB, minuteB);
-        calendarEnd.set(year, month-1, day, hourE, minuteE);
+        calendarBegin.set(year, month-1, day, hourB, minuteB, 0);
+        calendarEnd.set(year, month-1, day, hourE, minuteE, 0);
 
         // search
         List<ClassDate> classDateList = schedule.getClassesByParameters(name, calendarBegin, calendarEnd);
