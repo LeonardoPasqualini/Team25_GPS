@@ -46,7 +46,7 @@ public class TextUI {
 
             // parse JSON file
             try {
-                // ../../../src/logic/deis_schedule.json
+
                 Object object = parser.parse(new FileReader("../../../src/logic/deis_schedule.json"));
 
                 // typecast obk to JSONObject
