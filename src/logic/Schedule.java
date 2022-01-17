@@ -12,6 +12,10 @@ public class Schedule {
         classrooms = new ArrayList<>();
     }
 
+    public List<Classroom> getClassrooms() {
+        return classrooms;
+    }
+
     public String viewSchedule(String className){
         StringBuilder sb = new StringBuilder();
         if(className.equals("")) {
